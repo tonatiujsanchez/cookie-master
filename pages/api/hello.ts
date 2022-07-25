@@ -9,5 +9,15 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+
+  const { 'master-theme-cookie': theme='light', name='No name' } = req.cookies
+
+
+  console.log( '/api/hello', {theme, name});
+  
+
+  res.status(200).json({
+    name: 'John Doe',
+    ...req.cookies
+  })
 }
