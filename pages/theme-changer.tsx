@@ -8,14 +8,14 @@ import axios from 'axios'
 
 import { Layout } from "../components/layouts"
 
+interface Props {
+    theme: string
+}
 
-
-const ThemeChangerPage:FC = (props) => {
-
-    console.log('props',props);
+const ThemeChangerPage:FC<Props> = ({ theme }) => {
     
 
-    const [currentTheme, setCurrentTheme] = useState('light')
+    const [currentTheme, setCurrentTheme] = useState(theme)
 
     const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
         
@@ -32,8 +32,8 @@ const ThemeChangerPage:FC = (props) => {
     }
     
     useEffect(()=>{
-        console.log( 'LocalStorage: ', localStorage.getItem('master-theme') )
-        console.log( 'Cookie: ', Cookies.get('master-theme-cookie') )
+        // console.log( 'LocalStorage: ', localStorage.getItem('master-theme') )
+        // console.log( 'Cookie: ', Cookies.get('master-theme-cookie') )
     },[])
 
     return (
@@ -69,11 +69,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     
     const { 'master-theme-cookie': theme='light', name='No name' } = req.cookies
 
-    console.log('getServerSideProps', {theme, name});
+    const validThemes = [ 'light', 'dark', 'custom' ]
+
+
+
 
     return {
         props: {
-            theme,
+            theme: validThemes.includes( theme ) ? theme : 'dark',
             name,
         }
     }
