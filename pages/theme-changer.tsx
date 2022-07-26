@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 
 import { Layout } from "../components/layouts"
+import { useUI } from "../hooks/useUI"
 
 interface Props {
     theme: string
@@ -16,14 +17,17 @@ const ThemeChangerPage:FC<Props> = ({ theme }) => {
     
 
     const [currentTheme, setCurrentTheme] = useState(theme)
+    const { changeTheme, theme: tema } = useUI()
 
     const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
         
         const selectedTheme = event.target.value
         setCurrentTheme( selectedTheme )
-
+        
         localStorage.setItem('master-theme', selectedTheme)
         Cookies.set('master-theme-cookie', selectedTheme)
+        
+        changeTheme(selectedTheme)
     }
 
     const onClick = async() => {

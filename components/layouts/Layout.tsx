@@ -1,13 +1,19 @@
 import Head from "next/head"
-import { FC } from "react"
+import { FC  } from 'react';
+
+
 import { Navbar } from "../ui"
+
 
 
 interface Props {
     children: JSX.Element
 }
 
-export const Layout:FC<Props> = ({ children }) => {
+
+export const Layout: FC<Props> = ({ children }) => {
+
+
     return (
         <>
             <Head>
@@ -17,8 +23,9 @@ export const Layout:FC<Props> = ({ children }) => {
                 <Navbar />
             </nav>
             <main>
-                { children }
+                {children}
             </main>
+
         </>
     )
 }
